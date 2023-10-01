@@ -47,34 +47,18 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('MyApp')->accessToken;
-            return response()->json(['token' => $token], 200);
+            return response()->json(['token' => $token, 'message' => 'Login success'], 200);
         } else {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
-    public function verify2(Request $request, $token)
-    {
-        $user = User::where('verification_token', $token)->first();
-
-        if (!$user) {
-            abort(404); // Or return an error response
-        }
-
-        // Verify the email and clear the verification token
-        $user->email_verified_at = now();
-        $user->verification_token = null;
-        $user->save();
-
-        return response()->json(['message' => 'Email verified successfully']);
-    }
-
-    public function verify(Request $request, $token)
+    public function verifyEmail($token)
     {
         $user = $this->userRepository->findByVerificationToken($token);
 
         if (!$user) {
-            abort(404); // Or return an error response
+            abort(404);
         }
 
         $this->userRepository->markEmailAsVerified($user);

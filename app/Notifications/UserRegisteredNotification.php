@@ -11,12 +11,13 @@ class UserRegisteredNotification extends Notification
 {
     use Queueable;
 
+    public $verificationLink;
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($verificationLink)
     {
-        //
+        $this->verificationLink = $verificationLink;
     }
 
     /**
@@ -34,14 +35,12 @@ class UserRegisteredNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $verificationUrl = url("/verify-email/{$notifiable->getKey()}/" . urlencode($notifiable->getEmailForVerification()));
-
         return (new MailMessage)
             ->subject('Welcome to Your Application')
             ->greeting('Hello!')
             ->line('Thank you for registering on our platform.')
             ->line('You can now start using our services.')
-            ->action('Verify Your Email', $verificationUrl)
+            ->action('Verify Your Email', $this->verificationLink)
             ->line('If you have any questions, feel free to contact us.');
     }
 

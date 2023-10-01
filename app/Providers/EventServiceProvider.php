@@ -22,7 +22,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserRegistered::class => [
             SendUserRegisteredNotification::class,
-            SendRegistrationNotification::class,
         ],
     ];
 

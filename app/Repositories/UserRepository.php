@@ -38,6 +38,6 @@ class UserRepository implements UserRepositoryInterface
         $user->verification_token = null;
         $user->save();
 
-        event(new UserRegistered($user, 'registration'));
+        event(new UserRegistered($user, 'registered'));
     }
 }

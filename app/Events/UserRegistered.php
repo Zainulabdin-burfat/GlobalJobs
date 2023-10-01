@@ -19,7 +19,7 @@ class UserRegistered
     public $notificationType;
     public $verificationLink;
 
-    public function __construct($user, $notificationType, $verificationLink)
+    public function __construct($user, $notificationType, $verificationLink = null)
     {
         $this->user = $user;
         $this->notificationType = $notificationType;

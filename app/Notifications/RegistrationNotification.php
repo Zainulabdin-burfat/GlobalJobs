@@ -11,11 +11,9 @@ class RegistrationNotification extends Notification
 {
     use Queueable;
 
-    public $verificationLink;
-
-    public function __construct($verificationLink)
+    public function __construct()
     {
-        $this->verificationLink = $verificationLink;
+        //
     }
 
     /**
@@ -38,7 +36,6 @@ class RegistrationNotification extends Notification
             ->greeting('Hello!')
             ->line('Thank you for registering on our platform.')
             ->line('You can now start using our services.')
-            ->action('Verify Your Email', $this->verificationLink)
             ->line('If you have any questions, feel free to contact us.');
     }
 
